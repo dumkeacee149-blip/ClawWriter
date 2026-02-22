@@ -9,11 +9,14 @@ export default function GeneratorPage() {
   const [prompt, setPrompt] = useState("");
   const [out, setOut] = useState<string>("");
   const [status, setStatus] = useState<string>("");
+  const [quotaReached, setQuotaReached] = useState(false);
 
   const placeholder = useMemo(() => {
-    if (mode === "dialogue") return "Characters + setting + conflict trigger.\nGoal: write a high-tension dialogue.";
-    if (mode === "outline") return "Story idea + protagonist goal + stakes.\nGoal: 6–10 beat outline.";
-    return "Paste your text.\nGoal: rewrite to sound more human.";
+    if (mode === "dialogue")
+      return "Characters + setting + conflict trigger.\nAdd: stakes, subtext, emotional turns.";
+    if (mode === "outline")
+      return "Story idea + protagonist goal + stakes.\nOutput: 6–10 beats with pacing notes.";
+    return "Paste your paragraph.\nRewrite: keep meaning, improve cadence & voice.";
   }, [mode]);
 
   async function generate() {
@@ -34,6 +37,7 @@ export default function GeneratorPage() {
     const json = await res.json().catch(() => null);
     if (!res.ok) {
       if (json?.error === "quota_exceeded") {
+        setQuotaReached(true);
         setStatus("Daily limit reached (1/1). Try again tomorrow.");
         return;
       }
@@ -41,6 +45,7 @@ export default function GeneratorPage() {
       return;
     }
 
+    setQuotaReached(false);
     setOut(json.text || "");
     setStatus(`Done. Remaining today: ${json.remaining}/${json.limit}`);
   }
@@ -84,7 +89,7 @@ export default function GeneratorPage() {
         <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={generate}
-            disabled={prompt.trim().length < 10}
+            disabled={quotaReached || prompt.trim().length < 10}
             className="inline-flex items-center justify-center rounded-full border-2 border-sky/40 bg-sky px-6 py-3 text-sm font-extrabold text-white shadow-[0_16px_35px_rgba(14,165,233,0.35)] disabled:opacity-50"
           >
             Generate
