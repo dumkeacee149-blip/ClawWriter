@@ -4,17 +4,17 @@ import { Tag } from "@/components/Tag";
 const generators = [
   {
     id: "g1",
-    name: "角色生成器（可控缺陷）",
+    name: "Character generator (controlled flaw)",
     idea:
-      "输入角色目标 + 价值观 + 恐惧 + ‘致命缺陷’，生成可推动剧情的行为模式与语言口头禅。",
+      "Input goal + values + fear + a fatal flaw. Generate behavior patterns, catchphrases, and conflict triggers that move plot.",
     inputs: ["goal", "fear", "flaw", "backstory"],
     outputs: ["profile", "speech tics", "conflict triggers"],
   },
   {
     id: "g2",
-    name: "场景生成器（五感密度控制）",
+    name: "Scene generator (sensory density control)",
     idea:
-      "用一个滑杆控制‘五感描写密度’，生成同一场景的不同写法：快节奏/沉浸式/极简。",
+      "Use a slider to control sensory density and generate variants of the same scene: fast-paced / immersive / minimal.",
     inputs: ["location", "time", "mood", "density"],
     outputs: ["scene drafts (3 variants)"],
   },

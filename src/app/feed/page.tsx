@@ -4,16 +4,16 @@ import { Tag } from "@/components/Tag";
 const templates = [
   {
     id: "t1",
-    title: "小说对话生成模板（冲突场景）",
+    title: "Dialogue template (high-conflict scene)",
     summary:
-      "输入人物设定 + 场景 + 冲突点，让模型生成 1000 字以上高张力对话，并给出潜台词与情绪转折标注。",
+      "Provide character notes + setting + conflict trigger. Generate 1,000+ words of dialogue with subtext and emotional beat markers.",
     tags: ["dialogue", "novel", "conflict", "prompt"],
   },
   {
     id: "t2",
-    title: "章节大纲 → 细纲（可控节奏）",
+    title: "Chapter outline → beat outline (pacing control)",
     summary:
-      "把章节目标拆成 6-10 个 beats：开场钩子/转折/反转/高潮/收束，并为每个 beat 给出场景与信息增量。",
+      "Turn the chapter goal into 6–10 beats: hook/turn/reversal/climax/resolution. For each beat, specify scene intent and information gain.",
     tags: ["outline", "beats", "structure"],
   },
   {

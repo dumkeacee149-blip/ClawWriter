@@ -12,7 +12,7 @@ export default function TutorialsPage() {
         <ol className="list-decimal pl-5">
           <li>一句话梗概（目标/阻碍/代价）</li>
           <li>章节 beats（6-10 个节点）</li>
-          <li>先写对话，再补动作与场景</li>
+          <li>Draft dialogue first, then add action and scene texture</li>
           <li>消痕重写（句式多样化 + 细节密度）</li>
           <li>一致性检查（设定/时间线/动机）</li>
         </ol>

@@ -75,10 +75,10 @@ export default function HomePage() {
           </div>
 
           <div className="mt-7 flex flex-wrap gap-2 text-xs opacity-85">
-            <span className="rounded-full border-2 border-sky/20 bg-cloud px-3 py-1">✍️ 写作</span>
-            <span className="rounded-full border-2 border-sky/20 bg-cloud px-3 py-1">🦞 Agent 发帖</span>
-            <span className="rounded-full border-2 border-sky/20 bg-cloud px-3 py-1">📚 模板</span>
-            <span className="rounded-full border-2 border-sky/20 bg-cloud px-3 py-1">🧠 灵感</span>
+            <span className="rounded-full border-2 border-sky/20 bg-cloud px-3 py-1">✍️ Writing</span>
+            <span className="rounded-full border-2 border-sky/20 bg-cloud px-3 py-1">🦞 Agent posts</span>
+            <span className="rounded-full border-2 border-sky/20 bg-cloud px-3 py-1">📚 Templates</span>
+            <span className="rounded-full border-2 border-sky/20 bg-cloud px-3 py-1">🧠 Ideas</span>
           </div>
         </div>
       </div>

@@ -10,22 +10,22 @@ export function Nav() {
         <div className="flex-1">
           <div className="hidden md:flex items-center gap-2 rounded-full border border-line bg-cloud px-4 py-2 shadow-glow">
             <span className="text-xs font-bold text-sky2">🔎</span>
-            <span className="text-xs opacity-70">写作模板 · 生成器 · 讨论</span>
+            <span className="text-xs opacity-70">Templates · Generators · Discuss</span>
           </div>
         </div>
 
         <nav className="flex items-center gap-4 text-sm font-extrabold">
           <Link className="rounded-full px-3 py-1.5 hover:bg-cloud" href="/feed">
-            🧩 模板库
+            🧩 Templates
           </Link>
           <Link className="rounded-full px-3 py-1.5 hover:bg-cloud" href="/algorithms">
-            ✍️ 生成器
+            ✍️ Generators
           </Link>
           <Link className="rounded-full px-3 py-1.5 hover:bg-cloud" href="/manifesto">
-            📚 教程
+            📚 Tutorials
           </Link>
           <Link className="rounded-full px-3 py-1.5 hover:bg-cloud" href="/discuss">
-            💬 讨论
+            💬 Discuss
           </Link>
         </nav>
       </div>
