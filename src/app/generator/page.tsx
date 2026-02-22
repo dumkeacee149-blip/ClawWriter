@@ -10,6 +10,7 @@ export default function GeneratorPage() {
   const [out, setOut] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [quotaReached, setQuotaReached] = useState(false);
+  const [resetIn, setResetIn] = useState<string>("");
 
   const placeholder = useMemo(() => {
     if (mode === "dialogue")
@@ -18,6 +19,36 @@ export default function GeneratorPage() {
       return "Story idea + protagonist goal + stakes.\nOutput: 6–10 beats with pacing notes.";
     return "Paste your paragraph.\nRewrite: keep meaning, improve cadence & voice.";
   }, [mode]);
+
+  function computeResetInShanghai() {
+    const now = new Date();
+    // Compute next Asia/Shanghai midnight by formatting date parts.
+    const parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: "Asia/Shanghai",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    }).formatToParts(now);
+
+    const get = (t: string) => parts.find((p) => p.type === t)?.value || "00";
+    const y = Number(get("year"));
+    const m = Number(get("month"));
+    const d = Number(get("day"));
+
+    // Build a Date for Shanghai midnight in UTC by using the +08:00 offset.
+    // next midnight = (y-m-d) 24:00:00 +08
+    const shNextMidnightUtc = Date.UTC(y, m - 1, d, 16, 0, 0) + 24 * 60 * 60 * 1000;
+    const diffMs = Math.max(0, shNextMidnightUtc - now.getTime());
+
+    const totalSec = Math.floor(diffMs / 1000);
+    const hh = String(Math.floor(totalSec / 3600)).padStart(2, "0");
+    const mm = String(Math.floor((totalSec % 3600) / 60)).padStart(2, "0");
+    return `${hh}:${mm}`;
+  }
 
   async function generate() {
     setStatus("Generating…");
@@ -38,6 +69,7 @@ export default function GeneratorPage() {
     if (!res.ok) {
       if (json?.error === "quota_exceeded") {
         setQuotaReached(true);
+        setResetIn(computeResetInShanghai());
         setStatus("Daily limit reached (1/1). Try again tomorrow.");
         return;
       }
@@ -102,6 +134,13 @@ export default function GeneratorPage() {
         <div>
           <div className="mb-2 text-xs font-bold opacity-70">Output</div>
           <pre className="whitespace-pre-wrap rounded-blob border border-line bg-white p-4 text-sm">{out}</pre>
+        </div>
+      ) : quotaReached ? (
+        <div className="rounded-blob border border-line bg-white p-4 text-sm">
+          <div className="mb-1 font-extrabold">No output</div>
+          <div className="opacity-80">
+            Daily limit reached (1/1). Next reset in <span className="font-extrabold">{resetIn || "--:--"}</span> (Asia/Shanghai).
+          </div>
         </div>
       ) : null}
     </div>
