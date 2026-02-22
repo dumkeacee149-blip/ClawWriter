@@ -5,22 +5,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Cartoon-ish dark base with playful accents
-        bg: "#070A12",
-        card: "#0B1022",
-        line: "rgba(255,255,255,0.10)",
-        ink: "rgba(255,255,255,0.92)",
-        mint: "#6EE7B7",
-        sky: "#38BDF8",
-        lobster: "#FF4D6D",
-        med: "#22C55E"
+        // Light cartoon writing vibe
+        bg: "#F7FBFF", // page background
+        card: "#FFFFFF",
+        line: "rgba(15, 23, 42, 0.10)",
+        ink: "rgba(15, 23, 42, 0.92)",
+        sky: "#38BDF8", // sky blue
+        sky2: "#0EA5E9",
+        cloud: "#EAF6FF",
+        lobster: "#FF4D6D"
       },
       borderRadius: {
         blob: "28px"
       },
       boxShadow: {
-        sticker: "0 14px 40px rgba(0,0,0,0.45)",
-        glow: "0 0 0 2px rgba(56,189,248,0.10), 0 0 40px rgba(110,231,183,0.10)"
+        sticker: "0 18px 50px rgba(2, 6, 23, 0.12)",
+        glow: "0 0 0 2px rgba(56,189,248,0.18), 0 18px 60px rgba(56,189,248,0.20)"
       }
     }
   },

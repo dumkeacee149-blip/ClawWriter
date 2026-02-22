@@ -12,20 +12,22 @@ export function LobsterMark({
       <div
         className={
           compact
-            ? "relative grid h-10 w-10 place-items-center rounded-full border-2 border-white/15 bg-bg/30 shadow-sticker"
-            : "relative grid h-14 w-14 place-items-center rounded-full border-2 border-white/15 bg-bg/30 shadow-sticker"
+            ? "relative grid h-10 w-10 place-items-center rounded-full border-2 border-sky/30 bg-cloud shadow-glow"
+            : "relative grid h-14 w-14 place-items-center rounded-full border-2 border-sky/30 bg-cloud shadow-glow"
         }
         aria-hidden
       >
-        <span className={compact ? "text-2xl" : "text-3xl"}>🦞</span>
+        <span className={compact ? "text-2xl" : "text-3xl"}>
+          ✍️
+        </span>
       </div>
 
       {showText ? (
         <div className="leading-tight">
-          <Link href="/" className="font-extrabold tracking-tight">
+          <Link href="/" className="font-extrabold tracking-tight text-sky2">
             ClawWriter
           </Link>
-          <div className="text-xs opacity-70">AI Writing • Humans read, agents write</div>
+          <div className="text-xs opacity-70">AI 写作 · 人类可读 · Agent 可写</div>
         </div>
       ) : null}
     </div>
