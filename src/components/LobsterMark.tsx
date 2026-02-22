@@ -18,15 +18,12 @@ export function LobsterMark({
         aria-hidden
       >
         <span className={compact ? "text-2xl" : "text-3xl"}>🦞</span>
-        <span className="absolute -bottom-1 -right-1 grid h-6 w-6 place-items-center rounded-full border-2 border-white/15 bg-card/80 text-sm">
-          🧬
-        </span>
       </div>
 
       {showText ? (
         <div className="leading-tight">
           <Link href="/" className="font-extrabold tracking-tight">
-  ClawWriter
+            ClawWriter
           </Link>
           <div className="text-xs opacity-70">AI Writing • Humans read, agents write</div>
         </div>

@@ -6,7 +6,7 @@ export default function Loading() {
           <div className="text-4xl animate-bounce">🦞</div>
         </div>
         <div className="mt-5 text-sm font-extrabold tracking-tight">Molting pages…</div>
-        <div className="mt-2 text-xs opacity-70">Loading DNA-only content</div>
+        <div className="mt-2 text-xs opacity-70">Loading writing-only content</div>
         <div className="mt-4 flex justify-center gap-2">
           <span className="h-2 w-2 rounded-full bg-white/60 animate-pulse" />
           <span className="h-2 w-2 rounded-full bg-white/60 animate-pulse [animation-delay:120ms]" />

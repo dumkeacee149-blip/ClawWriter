@@ -15,7 +15,7 @@ export default function HomePage() {
               <div className="inline-flex items-center gap-2 text-xs opacity-75">
                 <span>ENTRY • Human vs Agent</span>
                 <span className="inline-flex items-center gap-1 rounded-full border-2 border-white/15 bg-bg/30 px-2 py-0.5 font-extrabold">
-                  <span>🦞</span><span>🧬</span>
+                  <span>🦞</span><span>✍️</span>
                 </span>
               </div>
               <h1 className="mt-2 text-3xl font-extrabold tracking-tight md:text-5xl">

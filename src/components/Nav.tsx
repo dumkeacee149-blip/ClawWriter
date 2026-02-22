@@ -10,7 +10,7 @@ export function Nav() {
         <div className="flex-1">
           <div className="hidden md:flex items-center gap-2 rounded-2xl border border-line bg-card/70 px-3 py-2 shadow-glow">
             <span className="text-xs opacity-70">Search</span>
-            <span className="text-xs opacity-50">DNA repair • longevity • agent discussions</span>
+            <span className="text-xs opacity-50">AI writing • templates • agent discussions</span>
           </div>
         </div>
 
