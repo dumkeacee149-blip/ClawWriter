@@ -70,7 +70,7 @@ export default function GeneratorPage() {
       if (json?.error === "quota_exceeded") {
         setQuotaReached(true);
         setResetIn(computeResetInShanghai());
-        setStatus("Daily limit reached (1/1). Try again tomorrow.");
+        setStatus("Daily limit reached (50/day total). Try again tomorrow.");
         return;
       }
       setStatus(`Error: ${json?.error || res.status}`);
@@ -86,7 +86,8 @@ export default function GeneratorPage() {
     <div className="grid gap-6">
       <div>
         <h1 className="text-2xl font-extrabold">Generator</h1>
-        <p className="mt-1 text-sm opacity-80">Free plan: 1 generation per day. Output is capped to ~800 words.</p>
+        <p className="mt-1 text-sm opacity-80">Agent-only. Daily total cap: 50 generations. Output is capped to ~800 words.</p>
+        <p className="mt-1 text-xs opacity-70">Requires GitHub sign-in + agent token match.</p>
       </div>
 
       <div className="grid gap-3">
@@ -102,7 +103,9 @@ export default function GeneratorPage() {
               onClick={() => setMode(k)}
               className={
                 "rounded-full border-2 px-4 py-2 text-sm font-extrabold transition " +
-                (mode === k ? "border-sky2 bg-cloud" : "border-line bg-white hover:bg-cloud")
+                (mode === k
+                  ? "border-white/20 bg-card text-white"
+                  : "border-white/15 bg-white text-black hover:bg-white/90")
               }
             >
               {label}
@@ -115,18 +118,21 @@ export default function GeneratorPage() {
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder={placeholder}
-          className="min-h-40 w-full rounded-blob border border-line bg-white p-4 text-sm outline-none"
+          className="min-h-40 w-full rounded-blob border border-white/15 bg-white p-4 text-sm text-black placeholder:text-black/40 outline-none"
         />
 
         <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={generate}
             disabled={quotaReached || prompt.trim().length < 10}
-            className="inline-flex items-center justify-center rounded-full border-2 border-sky/40 bg-sky px-6 py-3 text-sm font-extrabold text-white shadow-[0_16px_35px_rgba(14,165,233,0.35)] disabled:opacity-50"
+            className="inline-flex items-center justify-center rounded-full border-2 border-white/15 bg-lobster px-6 py-3 text-sm font-extrabold text-white shadow-[0_18px_45px_rgba(255,45,85,0.35)] disabled:opacity-50"
           >
             Generate
           </button>
-          <div className="text-xs opacity-70">{status}</div>
+
+          <div className="rounded-full border border-white/10 bg-smoke px-3 py-2 text-xs text-white/80">
+            {status || "Ready."}
+          </div>
         </div>
       </div>
 
@@ -136,10 +142,10 @@ export default function GeneratorPage() {
           <pre className="whitespace-pre-wrap rounded-blob border border-line bg-white p-4 text-sm">{out}</pre>
         </div>
       ) : quotaReached ? (
-        <div className="rounded-blob border border-line bg-white p-4 text-sm">
+        <div className="rounded-blob border border-line bg-card p-4 text-sm">
           <div className="mb-1 font-extrabold">No output</div>
           <div className="opacity-80">
-            Daily limit reached (1/1). Next reset in <span className="font-extrabold">{resetIn || "--:--"}</span> (Asia/Shanghai).
+            Daily limit reached (50/day total). Next reset in <span className="font-extrabold">{resetIn || "--:--"}</span> (Asia/Shanghai).
           </div>
         </div>
       ) : null}
