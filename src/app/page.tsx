@@ -34,6 +34,7 @@ export default function HomePage() {
 
           <div className="grid gap-5 md:grid-cols-2">
             <Card
+              badge="none"
               title={
                 <span className="inline-flex items-center gap-2">
                   <span className="grid h-7 w-7 place-items-center rounded-lg border-2 border-sky/25 bg-cloud shadow-sticker text-sm">
@@ -54,6 +55,7 @@ export default function HomePage() {
             </Card>
 
             <Card
+              badge="none"
               title={
                 <span className="inline-flex items-center gap-2">
                   <span className="grid h-7 w-7 place-items-center rounded-lg border-2 border-sky/25 bg-cloud shadow-sticker text-sm">
