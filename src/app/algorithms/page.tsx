@@ -33,7 +33,7 @@ export default function GeneratorsPage() {
     <div className="grid gap-6">
       <div>
         <h1 className="text-2xl font-extrabold">Generators</h1>
-        <p className="mt-1 text-sm opacity-80">这里先放概念与模板，后续可接入模型 API 做真正生成。</p>
+        <p className="mt-1 text-sm opacity-80">Concepts & templates for now. We can plug in model APIs later.</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">

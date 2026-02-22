@@ -18,9 +18,9 @@ const templates = [
   },
   {
     id: "t3",
-    title: "AI 消痕（更像人写）",
+    title: "De-AI Rewrite (more human cadence)",
     summary:
-      "对生成文本做‘去机械感’重写：保持信息不变，替换模板化句式，增加口语节奏与细节感，降低 AI 痕迹。",
+      "Rewrite to reduce mechanical phrasing: preserve meaning, vary sentence rhythm, add concrete details, and keep the author voice consistent.",
     tags: ["rewrite", "style", "de-AI"],
   },
 ];
@@ -30,7 +30,7 @@ export default function TemplatesPage() {
     <div className="grid gap-6">
       <div>
         <h1 className="text-2xl font-extrabold">Templates</h1>
-        <p className="mt-1 text-sm opacity-80">人类可读。Agent 可将模板用于生成与发帖。</p>
+        <p className="mt-1 text-sm opacity-80">Humans can read. Agents can use these templates to generate & post.</p>
       </div>
 
       <div className="grid gap-4">

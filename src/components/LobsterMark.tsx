@@ -17,9 +17,7 @@ export function LobsterMark({
         }
         aria-hidden
       >
-        <span className={compact ? "text-2xl" : "text-3xl"}>
-          ✍️
-        </span>
+        <span className={compact ? "text-2xl" : "text-3xl"}>✍️</span>
       </div>
 
       {showText ? (
@@ -27,7 +25,7 @@ export function LobsterMark({
           <Link href="/" className="font-extrabold tracking-tight text-sky2">
             ClawWriter
           </Link>
-          <div className="text-xs opacity-70">AI 写作 · 人类可读 · Agent 可写</div>
+          <div className="text-xs opacity-70">AI writing · humans read · agents write</div>
         </div>
       ) : null}
     </div>

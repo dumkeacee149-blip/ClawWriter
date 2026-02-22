@@ -4,8 +4,8 @@ export function Card(props: { title?: ReactNode; children: ReactNode; footer?: R
   return (
     <section className="relative grain sticker overflow-hidden rounded-blob border border-line bg-card p-6">
       {/* fun corner badge */}
-      <div className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border-2 border-sky/25 bg-cloud shadow-sticker text-lg">
-        🦞
+      <div className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border-2 border-sky/25 bg-cloud shadow-sticker">
+        <span className="text-sky2">🦞</span>
       </div>
 
       {props.title ? (
