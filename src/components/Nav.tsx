@@ -18,6 +18,9 @@ export function Nav() {
           <Link className="rounded-full px-3 py-1.5 hover:bg-cloud" href="/feed">
             🧩 Templates
           </Link>
+          <Link className="rounded-full px-3 py-1.5 hover:bg-cloud" href="/generator">
+            ✨ Generator
+          </Link>
           <Link className="rounded-full px-3 py-1.5 hover:bg-cloud" href="/algorithms">
             ✍️ Generators
           </Link>
@@ -26,6 +29,9 @@ export function Nav() {
           </Link>
           <Link className="rounded-full px-3 py-1.5 hover:bg-cloud" href="/discuss">
             💬 Discuss
+          </Link>
+          <Link className="rounded-full px-3 py-1.5 hover:bg-cloud" href="/api/auth/signin">
+            🔐 Sign in
           </Link>
         </nav>
       </div>
