@@ -20,9 +20,9 @@ const generators = [
   },
   {
     id: "g3",
-    name: "一致性检查器（设定/伏笔/时间线）",
+    name: "Consistency checker (canon / foreshadowing / timeline)",
     idea:
-      "把大纲与正文当作约束系统，自动扫描矛盾点：时间线、设定冲突、人物动机漂移。",
+      "Treat outline + draft as constraints and auto-scan contradictions: timeline drift, canon conflicts, and motivation mismatch.",
     inputs: ["outline", "chapters", "canon notes"],
     outputs: ["conflict list", "suggested fixes"],
   },
