@@ -4,6 +4,34 @@ import { useMemo, useState } from "react";
 
 type Mode = "dialogue" | "outline" | "rewrite";
 
+function computeResetInShanghai() {
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  }).formatToParts(now);
+
+  const get = (t: string) => parts.find((p) => p.type === t)?.value || "00";
+  const y = Number(get("year"));
+  const m = Number(get("month"));
+  const d = Number(get("day"));
+
+  // Asia/Shanghai is UTC+8. Next local midnight = (y-m-d) 24:00 +08.
+  const shNextMidnightUtc = Date.UTC(y, m - 1, d, 16, 0, 0) + 24 * 60 * 60 * 1000;
+  const diffMs = Math.max(0, shNextMidnightUtc - now.getTime());
+
+  const totalSec = Math.floor(diffMs / 1000);
+  const hh = String(Math.floor(totalSec / 3600)).padStart(2, "0");
+  const mm = String(Math.floor((totalSec % 3600) / 60)).padStart(2, "0");
+  return `${hh}:${mm}`;
+}
+
 export default function GeneratorPage() {
   const [mode, setMode] = useState<Mode>("dialogue");
   const [prompt, setPrompt] = useState("");
@@ -20,36 +48,6 @@ export default function GeneratorPage() {
     return "Paste your paragraph.\nRewrite: keep meaning, improve cadence & voice.";
   }, [mode]);
 
-  function computeResetInShanghai() {
-    const now = new Date();
-    // Compute next Asia/Shanghai midnight by formatting date parts.
-    const parts = new Intl.DateTimeFormat("en-US", {
-      timeZone: "Asia/Shanghai",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false,
-    }).formatToParts(now);
-
-    const get = (t: string) => parts.find((p) => p.type === t)?.value || "00";
-    const y = Number(get("year"));
-    const m = Number(get("month"));
-    const d = Number(get("day"));
-
-    // Build a Date for Shanghai midnight in UTC by using the +08:00 offset.
-    // next midnight = (y-m-d) 24:00:00 +08
-    const shNextMidnightUtc = Date.UTC(y, m - 1, d, 16, 0, 0) + 24 * 60 * 60 * 1000;
-    const diffMs = Math.max(0, shNextMidnightUtc - now.getTime());
-
-    const totalSec = Math.floor(diffMs / 1000);
-    const hh = String(Math.floor(totalSec / 3600)).padStart(2, "0");
-    const mm = String(Math.floor((totalSec % 3600) / 60)).padStart(2, "0");
-    return `${hh}:${mm}`;
-  }
-
   async function generate() {
     setStatus("Generating…");
     setOut("");
@@ -61,7 +59,7 @@ export default function GeneratorPage() {
     });
 
     if (res.status === 401) {
-      setStatus("Please log in first.");
+      setStatus("Please sign in with GitHub first.");
       return;
     }
 
@@ -70,7 +68,11 @@ export default function GeneratorPage() {
       if (json?.error === "quota_exceeded") {
         setQuotaReached(true);
         setResetIn(computeResetInShanghai());
-        setStatus("Daily limit reached (50/day total). Try again tomorrow.");
+        setStatus("Daily limit reached. Try again tomorrow.");
+        return;
+      }
+      if (json?.error === "agent_token_required") {
+        setStatus("Agent token required. Please re-enter via /agent-gate.");
         return;
       }
       setStatus(`Error: ${json?.error || res.status}`);
@@ -86,8 +88,9 @@ export default function GeneratorPage() {
     <div className="grid gap-6">
       <div>
         <h1 className="text-2xl font-extrabold">Generator</h1>
-        <p className="mt-1 text-sm opacity-80">Agent-only. Daily total cap: 50 generations. Output is capped to ~800 words.</p>
-        <p className="mt-1 text-xs opacity-70">Requires GitHub sign-in + agent token match.</p>
+        <p className="mt-1 text-sm opacity-80">
+          Agent-only. Daily total cap: 50 generations. Output is capped to ~800 words. Requires GitHub sign-in + agent token match.
+        </p>
       </div>
 
       <div className="grid gap-3">
@@ -134,21 +137,34 @@ export default function GeneratorPage() {
             {status || "Ready."}
           </div>
         </div>
-      </div>
 
-      {out ? (
-        <div>
-          <div className="mb-2 text-xs font-bold opacity-70">Output</div>
-          <pre className="whitespace-pre-wrap rounded-blob border border-line bg-white p-4 text-sm">{out}</pre>
+        {/* Output panel ALWAYS visible (so users know where results go) */}
+        <div className="mt-4">
+          <div className="mb-2 text-xs font-bold opacity-80 text-white">Output</div>
+
+          {out ? (
+            <pre className="max-h-[360px] overflow-auto whitespace-pre-wrap rounded-blob border border-white/10 bg-smoke p-4 text-sm text-white/90">
+              {out}
+            </pre>
+          ) : quotaReached ? (
+            <div className="rounded-blob border border-white/10 bg-smoke p-4 text-sm text-white/85">
+              <div className="mb-1 font-extrabold">No output</div>
+              <div>
+                Daily limit reached. Next reset in <span className="font-extrabold">{resetIn || "--:--"}</span> (Asia/Shanghai).
+              </div>
+            </div>
+          ) : status.startsWith("Error") ? (
+            <div className="rounded-blob border border-white/10 bg-smoke p-4 text-sm text-white/85">
+              <div className="mb-1 font-extrabold">No output</div>
+              <div>Request failed. See status above.</div>
+            </div>
+          ) : (
+            <div className="rounded-blob border border-white/10 bg-smoke p-4 text-sm text-white/70">
+              No output yet. Enter a prompt and click Generate.
+            </div>
+          )}
         </div>
-      ) : quotaReached ? (
-        <div className="rounded-blob border border-line bg-card p-4 text-sm">
-          <div className="mb-1 font-extrabold">No output</div>
-          <div className="opacity-80">
-            Daily limit reached (50/day total). Next reset in <span className="font-extrabold">{resetIn || "--:--"}</span> (Asia/Shanghai).
-          </div>
-        </div>
-      ) : null}
+      </div>
     </div>
   );
 }
